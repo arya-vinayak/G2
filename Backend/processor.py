@@ -1,9 +1,11 @@
+# Import necessary libraries
 from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
-from neural_searcher import NeuralSearcher
-import redis
-import json
+from neural_searcher import NeuralSearcher  # Import your NeuralSearcher class
+import redis  # Import the Redis library for connection
+import json  # Import JSON library for handling JSON data
 
+# Connect to Redis server
 r = redis.Redis(
     host='127.0.0.1',
     port=6379,
@@ -11,25 +13,22 @@ r = redis.Redis(
 )
 print("connected to redis")
 
-# pubsub() method creates the pubsub object
-# but why i named it mobile 🧐
-# just kidding 😂 think of it as the waki taki that listens for incomming messages
+# Create a pub/sub object to listen for incoming messages from a Redis channel
 mobile = r.pubsub()
 mobile.subscribe('newProductsSourceForge')
 
-
-# Load a pre-trained model for encoding text into vectors as well as the Neural Searcher for Superfact Search
+# Load pre-trained SentenceTransformer model for text encoding
 model = SentenceTransformer("all-MiniLM-L6-v2", device="cuda")
 print("Model loaded successfully")
-Products_Not_Exist = []
+
+# Initialize NeuralSearcher for product search
 neural_searcher = NeuralSearcher("G2products")
 print("Neural Searcher loaded successfully")
 
-
+# Function to calculate cosine similarity between two strings
 def cosine_similarity_between_strings(string1, string2): 
-    # Encode the input strings into vectors
-    vector1 = model.encode(string1)
-    vector2 = model.encode(string2)
+    vector1 = model.encode(string1)  # Encode first string
+    vector2 = model.encode(string2)  # Encode second string
 
     # Reshape the vectors for cosine similarity calculation
     vector1 = vector1.reshape(1, -1)
@@ -40,11 +39,12 @@ def cosine_similarity_between_strings(string1, string2):
 
     return similarity_score
 
+# Function to get similar products based on a product name
 def get_similar_products(product_name, filter=None):
-    # Search for similar products based on the product name
     similar_products = neural_searcher.search(product_name, filter)
     return similar_products
 
+# Function to calculate similarity score between two products
 def get_similarity_score(product1, product2):
     if(product1["name"] == product2["name"]):
         return 1.0
@@ -53,25 +53,22 @@ def get_similarity_score(product1, product2):
 
     similarity_score_names = cosine_similarity_between_strings(product1["name"], product2["name"])
     similarity_score_descriptions = cosine_similarity_between_strings(product1["description"], product2["description"])
+## We have performed a weighted average of the similarity scores for the product names and descriptions.(60% for names and 40% for descriptions)
     similarity_score =  0.6 * similarity_score_names + 0.4 * similarity_score_descriptions
 
     return similarity_score
 
-
+# Function to process incoming product
 def process_product(product):
-    # Get similar products based on the product name
     similar_products = get_similar_products(product["name"])
-    # Calculate similarity scores with each similar product
     similarity_score = get_similarity_score(product, similar_products[0])
     if similarity_score > 0.85:
-        # ignore the product itself
         print("Product already exists")
-    else :
-        # add product to the products not found list
+    else:
         print("Product not found")
         Products_Not_Exist.append(product)
 
-
+# Function to save products not found to a JSON file
 def save_products_not_found():
     try:
         with open("products_not_found.json", "r") as f:
@@ -86,9 +83,10 @@ def save_products_not_found():
     with open("products_not_found.json", "w") as f:
         json.dump(existing_data, f)
 
-
-
 count = 0
+Products_Not_Exist = []
+
+# Listen for incoming messages from the Redis pub/sub channel
 for message in mobile.listen():
     count += 1
     if message['type'] == 'message':
@@ -102,8 +100,6 @@ for message in mobile.listen():
         except Exception as e:
             print(f"Error processing message: {str(e)}")
             continue
-        if count%10 == 0:
+        # Save products not found every 10 messages just to reduce IO
+        if count % 10 == 0:
             save_products_not_found()
-
-
-

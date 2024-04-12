@@ -8,20 +8,20 @@
 ![image](https://github.com/arya-vinayak/G2/assets/94037471/a628c09d-5a80-4bf0-b425-bd0bf742efe2)
 
 
-## Key Features
+## Key Features 🔑
 
 - *Web Scraping with Selenium*: Utilizes Selenium to scrape data from websites, ensuring compatibility with dynamic web pages.
 - *Data Analysis and Indexing*: Employs similarity indexing to quickly check if scraped data already exists in the database.
 - *Vector Database*: Utilizes the power of Vector Database for efficient data storage and retrieval, enhanced by **custom queries** and a **neural engine** for faster search.
 - *Streamlit Frontend*: Offers a user-friendly interface for visualizing products not present in the database, enhancing user interaction and data exploration.
 
-## Performance Highlights
+## Performance Highlights 🏎
 
 - *Speed*: Processes over 1000+ products in just 10 seconds, showcasing the framework's high-speed capabilities.
 - *Efficiency*: Utilizes similarity indexing to quickly identify existing data, reducing unnecessary processing.
 - *Scalability*: Designed with scalability in mind, allowing for easy expansion and integration of new features.
 
-## Prerequisites
+## Prerequisites 😎
 
 - Python 3.6+
 - Redis Stack (local or cloud-based)

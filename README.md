@@ -34,7 +34,7 @@ docker pull qdrant/qdrant
 
 ```
 
-1. Start Qdrant inside Docker with the following command:
+2. Start Qdrant inside Docker with the following command:
 
 ```bash
 docker run -p 6333:6333 \

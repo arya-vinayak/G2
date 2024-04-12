@@ -1,0 +1,16 @@
+cffi
+cryptography
+msgpack-python
+pycparser
+raftos
+six
+redis
+sklearn
+sentence-transformers
+requests
+tqdm
+numpy
+pandas
+qdrant_client
+qdrant-client
+fastapi

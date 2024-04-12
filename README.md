@@ -5,4 +5,6 @@
 
 ## Architecture
 
-![image](https://github.com/arya-vinayak/G2/assets/94037471/8636b131-2765-4dc8-b4d5-6060a77bd7b3)
+![image](https://github.com/arya-vinayak/G2/assets/94037471/a628c09d-5a80-4bf0-b425-bd0bf742efe2)
+
+

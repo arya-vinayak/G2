@@ -10,7 +10,8 @@
 
 ## Key Features 🔑
 
-- *Web Scraping with Selenium*: Utilizes Selenium to scrape data from websites, ensuring compatibility with dynamic web pages.
+- *Web Scraping with Selenium*: Utilizes Selenium to scrape data from websites periodically as a cron job, ensuring compatibility with dynamic web pages and periodic updates.
+- *Lightning Fast Communication using Redis Pub/Sub*: Integrates Redis Pub/Sub to efficiently communicate between components.
 - *Data Analysis and Indexing*: Employs similarity indexing to quickly check if scraped data already exists in the database.
 - *Vector Database*: Utilizes the power of Vector Database for efficient data storage and retrieval, enhanced by **custom queries** and a **neural engine** for faster search.
 - *Streamlit Frontend*: Offers a user-friendly interface for visualizing products not present in the database, enhancing user interaction and data exploration.
@@ -25,7 +26,7 @@
 
 - Python 3.6+
 - Redis Stack (local or cloud-based)
-- Selenium WebDriver
+- Selenium WebDriver (local or containerised)
 - qdrant vector db
 - Drive to have fun!
 

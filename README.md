@@ -1,7 +1,7 @@
 # VectorBlaze 🔥
 
-### We implement a Innovative Cron-Job Website Scrapper with continuous streaming to the Backend Product Analytics part with G2 that blazingly processess 1000+ different products in less than 10 seconds.
-### We have Focused on Fast Web scrapping and Blazing analysis of the product leveraging tools like Qdrant Vector Database , Vector similarity indexing and Fast API Interaction 
+### We implement a Innovative Cron-Job Website Scraper with continuous streaming to the Backend Product Analytics part with G2 that blazingly processess 1000+ different products in less than 10 seconds.
+### We have Focused on Fast Web scraping and Blazing analysis of the product leveraging tools like Qdrant Vector Database , Vector similarity indexing and Fast API Interaction 
 
 ## Architecture 🗺️
 
